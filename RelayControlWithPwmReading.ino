@@ -87,7 +87,7 @@ void setup() {
 
 void loop() {
   PWM_in = pulseIn(PWM_INPUT_PIN, HIGH);
-//  Serial.println(PWM_in);
+  Serial.println(PWM_in);
 
 
 if( !flgL_1 && 
