@@ -532,8 +532,7 @@ void launchRight()
   {
     digitalWrite(relay7, LOW);
     digitalWrite(relay8, LOW);
-    Serial.println("R 0 1 1 0 0");
-    delay(2000);
+ //   Serial.println("R 0 1 1 0 0");
   }
 
   else if ( ( (PWM_R_01101 - ADJUSTMENT_RANGE) < PWM_in ) &&
