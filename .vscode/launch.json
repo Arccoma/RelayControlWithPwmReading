@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/KPRO/RelayControlWithPwmReading",
-      "program": "d:/KPRO/RelayControlWithPwmReading/build/Debug/outDebug",
+      "cwd": "d:/KPRO/PROJECT/디펜스 코리아/RelayControlWithPwmReading",
+      "program": "d:/KPRO/PROJECT/디펜스 코리아/RelayControlWithPwmReading/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

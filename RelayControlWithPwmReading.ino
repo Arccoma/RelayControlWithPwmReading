@@ -2,6 +2,7 @@
   Relay Control with PWM reading value
   Relay Module: LK 임베디드 6channel HL-56S (Low Level Trigger)
 */
+// #define DEBUG // 디버그 모드에서만 시리얼 프린트 출력. 주석처리시 출력 안됨.
 
 //--------Left Side PWM VALUE -----------
 #define PWM_L_00000   1000
@@ -77,9 +78,6 @@
 #define PWM_R_11110   1950
 #define PWM_R_11111   1965  // button 1,2,3,4,5
 
-
-
-
 const int PWM_INPUT_PIN = A0; // MIN 978 ~ MAX 1990 ( MIDDLE 1500 )
 const int relay1 = 12;
 const int relay2 = 11;
@@ -137,573 +135,708 @@ void setup() {
 }
 
 void loop() {
-    PWM_in = pulseIn(PWM_INPUT_PIN, HIGH);
-    Serial.println(PWM_in);
-    //delay(100);
+  PWM_in = pulseIn(PWM_INPUT_PIN, HIGH);
+#ifdef DEBUG
+  Serial.println(PWM_in);
+  delay(100);
+#endif
 
-    launchLeft();
-   // delay(100);
-    launchRight();
-  //  delay(100);
+  launchLeft();
+#ifdef DEBUG
+  delay(100);
+#endif
 
+  launchRight();
+#ifdef DEBUG
+  delay(100);
+#endif
 }
 
 void launchLeft()
 {
   if ( ( (PWM_L_00000 - ADJUSTMENT_RANGE) < PWM_in ) &&
-       ( PWM_in <= PWM_L_00000-DECREASE  )                          )
+       ( PWM_in <= PWM_L_00000 - DECREASE  )                          )
   {
     digitalWrite(relay1, HIGH);
     digitalWrite(relay2, HIGH);
     digitalWrite(relay3, HIGH);
     digitalWrite(relay4, HIGH);
     digitalWrite(relay5, HIGH);
-//    Serial.println("L 0 0 0 0 0");
+#ifdef DEBUG
+    Serial.println("L 0 0 0 0 0");
+#endif
   }
 
   else if ( ( (PWM_L_00001 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_00001-DECREASE )                        )
+            ( PWM_in <= PWM_L_00001 - DECREASE )                        )
   {
     digitalWrite(relay5, LOW);
-//    Serial.println("L 0 0 0 0 1");
+#ifdef DEBUG
+    Serial.println("L 0 0 0 0 1");
+#endif
   }
 
   else if ( ( (PWM_L_00010 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_00010-DECREASE  )                        )
+            ( PWM_in <= PWM_L_00010 - DECREASE  )                        )
   {
     digitalWrite(relay4, LOW);
-//    Serial.println("L 0 0 0 1 0");
+#ifdef DEBUG
+    Serial.println("L 0 0 0 1 0");
+#endif
   }
 
   else if ( ( (PWM_L_00011 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_00011-DECREASE  )                        )
+            ( PWM_in <= PWM_L_00011 - DECREASE  )                        )
   {
     digitalWrite(relay4, LOW);
     digitalWrite(relay5, LOW);
-//    Serial.println("L 0 0 0 1 1");
+#ifdef DEBUG
+    Serial.println("L 0 0 0 1 1");
+#endif
   }
 
   else if ( ( (PWM_L_00100 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_00100-DECREASE  )                        )
+            ( PWM_in <= PWM_L_00100 - DECREASE  )                        )
   {
     digitalWrite(relay3, LOW);
-//    Serial.println("L 0 0 1 0 0");
+#ifdef DEBUG
+    Serial.println("L 0 0 1 0 0");
+#endif
   }
 
   else if ( ( (PWM_L_00101 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_00101-DECREASE  )                        )
+            ( PWM_in <= PWM_L_00101 - DECREASE  )                        )
   {
     digitalWrite(relay3, LOW);
     digitalWrite(relay5, LOW);
-//    Serial.println("L 0 0 1 0 1");
+
+#ifdef DEBUG
+    Serial.println("L 0 0 1 0 1");
+#endif
   }
 
   else if ( ( (PWM_L_00110 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_00110-DECREASE  )                        )
+            ( PWM_in <= PWM_L_00110 - DECREASE  )                        )
   {
     digitalWrite(relay3, LOW);
     digitalWrite(relay4, LOW);
- //   Serial.println("L 0 0 1 1 0");
+#ifdef DEBUG
+    Serial.println("L 0 0 1 1 0");
+#endif
   }
 
   else if ( ( (PWM_L_00111 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_00111-DECREASE  )                        )
+            ( PWM_in <= PWM_L_00111 - DECREASE  )                        )
   {
     digitalWrite(relay3, LOW);
     digitalWrite(relay4, LOW);
     digitalWrite(relay5, LOW);
-//    Serial.println("L 0 0 1 1 1");
+#ifdef DEBUG
+    Serial.println("L 0 0 1 1 1");
+#endif
   }
 
   else if ( ( (PWM_L_01000 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_01000-DECREASE  )                        )
+            ( PWM_in <= PWM_L_01000 - DECREASE  )                        )
   {
     digitalWrite(relay2, LOW);
-//    Serial.println("L 0 1 0 0 0");
+#ifdef DEBUG
+    Serial.println("L 0 1 0 0 0");
+#endif
   }
 
   else if ( ( (PWM_L_01001 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_01001-DECREASE  )                        )
+            ( PWM_in <= PWM_L_01001 - DECREASE  )                        )
   {
     digitalWrite(relay2, LOW);
     digitalWrite(relay5, LOW);
-//    Serial.println("L 0 1 0 0 1");
+#ifdef DEBUG
+    Serial.println("L 0 1 0 0 1");
+#endif
   }
 
   else if ( ( (PWM_L_01010 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_01010-DECREASE  )                        )
+            ( PWM_in <= PWM_L_01010 - DECREASE  )                        )
   {
     digitalWrite(relay2, LOW);
     digitalWrite(relay4, LOW);
-//    Serial.println("L 0 1 0 1 0");
+#ifdef DEBUG
+    Serial.println("L 0 1 0 1 0");
+#endif
   }
 
   else if ( ( (PWM_L_01011 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_01011-DECREASE )                        )
+            ( PWM_in <= PWM_L_01011 - DECREASE )                        )
   {
     digitalWrite(relay2, LOW);
     digitalWrite(relay4, LOW);
     digitalWrite(relay5, LOW);
-//    Serial.println("L 0 1 0 1 1");
+#ifdef DEBUG
+    Serial.println("L 0 1 0 1 1");
+#endif
   }
 
   else if ( ( (PWM_L_01100 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_01100-DECREASE  )                        )
+            ( PWM_in <= PWM_L_01100 - DECREASE  )                        )
   {
     digitalWrite(relay2, LOW);
     digitalWrite(relay3, LOW);
-//    Serial.println("L 0 1 1 0 0");
+#ifdef DEBUG
+    Serial.println("L 0 1 1 0 0");
+#endif
   }
 
   else if ( ( (PWM_L_01101 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_01101-DECREASE  )                        )
+            ( PWM_in <= PWM_L_01101 - DECREASE  )                        )
   {
     digitalWrite(relay2, LOW);
     digitalWrite(relay3, LOW);
     digitalWrite(relay5, LOW);
-//    Serial.println("L 0 1 1 0 1");
+#ifdef DEBUG
+    Serial.println("L 0 1 1 0 1");
+#endif
   }
 
   else if ( ( (PWM_L_01110 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_01110-DECREASE  )                        )
+            ( PWM_in <= PWM_L_01110 - DECREASE  )                        )
   {
     digitalWrite(relay2, LOW);
     digitalWrite(relay3, LOW);
     digitalWrite(relay4, LOW);
-//    Serial.println("L 0 1 1 1 0");
+#ifdef DEBUG
+    Serial.println("L 0 1 1 1 0");
+#endif
   }
 
   else if ( ( (PWM_L_01111 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_01111-DECREASE  )                        )
+            ( PWM_in <= PWM_L_01111 - DECREASE  )                        )
   {
     digitalWrite(relay2, LOW);
     digitalWrite(relay3, LOW);
     digitalWrite(relay4, LOW);
     digitalWrite(relay5, LOW);
-//    Serial.println("L 0 1 1 1 1");
+#ifdef DEBUG
+    Serial.println("L 0 1 1 1 1");
+#endif
   }
 
   else if ( ( (PWM_L_10000 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_10000-DECREASE  )                        )
+            ( PWM_in <= PWM_L_10000 - DECREASE  )                        )
   {
     digitalWrite(relay1, LOW);
-//    Serial.println("L 1 0 0 0 0");
+#ifdef DEBUG
+    Serial.println("L 1 0 0 0 0");
+#endif
   }
 
   else if ( ( (PWM_L_10001 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_10001-DECREASE  )                        )
+            ( PWM_in <= PWM_L_10001 - DECREASE  )                        )
   {
     digitalWrite(relay1, LOW);
     digitalWrite(relay5, LOW);
-//    Serial.println("L 1 0 0 0 1");
+#ifdef DEBUG
+    Serial.println("L 1 0 0 0 1");
+#endif
   }
 
   else if ( ( (PWM_L_10010 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_10010-DECREASE  )                        )
+            ( PWM_in <= PWM_L_10010 - DECREASE  )                        )
   {
     digitalWrite(relay1, LOW);
     digitalWrite(relay4, LOW);
-//    Serial.println("L 1 0 0 1 0");
+#ifdef DEBUG
+    Serial.println("L 1 0 0 1 0");
+#endif
   }
 
   else if ( ( (PWM_L_10011 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_10011-DECREASE  )                        )
+            ( PWM_in <= PWM_L_10011 - DECREASE  )                        )
   {
     digitalWrite(relay1, LOW);
     digitalWrite(relay4, LOW);
     digitalWrite(relay5, LOW);
-//    Serial.println("L 1 0 0 1 1");
+#ifdef DEBUG
+    Serial.println("L 1 0 0 1 1");
+#endif
   }
 
   else if ( ( (PWM_L_10100 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_10100-DECREASE  )                        )
+            ( PWM_in <= PWM_L_10100 - DECREASE  )                        )
   {
     digitalWrite(relay1, LOW);
     digitalWrite(relay3, LOW);
-//    Serial.println("L 1 0 1 0 0");
+#ifdef DEBUG
+    Serial.println("L 1 0 1 0 0");
+#endif
   }
 
   else if ( ( (PWM_L_10101 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_10101-DECREASE  )                        )
+            ( PWM_in <= PWM_L_10101 - DECREASE  )                        )
   {
     digitalWrite(relay1, LOW);
     digitalWrite(relay3, LOW);
     digitalWrite(relay5, LOW);
-//    Serial.println("L 1 0 1 0 1");
+#ifdef DEBUG
+    Serial.println("L 1 0 1 0 1");
+#endif
   }
 
   else if ( ( (PWM_L_10110 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_10110-DECREASE  )                        )
+            ( PWM_in <= PWM_L_10110 - DECREASE  )                        )
   {
     digitalWrite(relay1, LOW);
     digitalWrite(relay3, LOW);
     digitalWrite(relay4, LOW);
-//    Serial.println("L 1 0 1 1 0");
+#ifdef DEBUG
+    Serial.println("L 1 0 1 1 0");
+#endif
   }
 
   else if ( ( (PWM_L_10111 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_10111-DECREASE  )                        )
+            ( PWM_in <= PWM_L_10111 - DECREASE  )                        )
   {
     digitalWrite(relay1, LOW);
     digitalWrite(relay3, LOW);
     digitalWrite(relay4, LOW);
     digitalWrite(relay5, LOW);
- //   Serial.println("L 1 0 1 1 1");
+#ifdef DEBUG
+    Serial.println("L 1 0 1 1 1");
+#endif
   }
 
   else if ( ( (PWM_L_11000 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_11000-DECREASE  )                        )
+            ( PWM_in <= PWM_L_11000 - DECREASE  )                        )
   {
     digitalWrite(relay1, LOW);
     digitalWrite(relay2, LOW);
-//    Serial.println("L 1 1 0 0 0");
+#ifdef DEBUG
+    Serial.println("L 1 1 0 0 0");
+#endif
   }
 
   else if ( ( (PWM_L_11001 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_11001-DECREASE  )                        )
+            ( PWM_in <= PWM_L_11001 - DECREASE  )                        )
   {
     digitalWrite(relay1, LOW);
     digitalWrite(relay2, LOW);
     digitalWrite(relay5, LOW);
-//    Serial.println("L 1 1 0 0 1");
+#ifdef DEBUG
+    Serial.println("L 1 1 0 0 1");
+#endif
   }
 
   else if ( ( (PWM_L_11010 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_11010-DECREASE  )                        )
+            ( PWM_in <= PWM_L_11010 - DECREASE  )                        )
   {
     digitalWrite(relay1, LOW);
     digitalWrite(relay2, LOW);
     digitalWrite(relay4, LOW);
-//    Serial.println("L 1 1 0 1 0");
+#ifdef DEBUG
+    Serial.println("L 1 1 0 1 0");
+#endif
   }
 
   else if ( ( (PWM_L_11011 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_11011-DECREASE  )                        )
+            ( PWM_in <= PWM_L_11011 - DECREASE  )                        )
   {
     digitalWrite(relay1, LOW);
     digitalWrite(relay2, LOW);
     digitalWrite(relay4, LOW);
     digitalWrite(relay5, LOW);
-//    Serial.println("L 1 1 0 1 1");
+#ifdef DEBUG
+    Serial.println("L 1 1 0 1 1");
+#endif
   }
 
   else if ( ( (PWM_L_11100 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_11100-DECREASE  )                        )
+            ( PWM_in <= PWM_L_11100 - DECREASE  )                        )
   {
     digitalWrite(relay1, LOW);
     digitalWrite(relay2, LOW);
     digitalWrite(relay3, LOW);
-//    Serial.println("L 1 1 1 0 0");
+#ifdef DEBUG
+    Serial.println("L 1 1 1 0 0");
+#endif
   }
 
   else if ( ( (PWM_L_11101 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_11101-DECREASE  )                        )
+            ( PWM_in <= PWM_L_11101 - DECREASE  )                        )
   {
     digitalWrite(relay1, LOW);
     digitalWrite(relay2, LOW);
     digitalWrite(relay3, LOW);
     digitalWrite(relay5, LOW);
-//    Serial.println("L 1 1 1 0 1");
+#ifdef DEBUG
+    Serial.println("L 1 1 1 0 1");
+#endif
   }
 
   else if ( ( (PWM_L_11110 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_11110-DECREASE  )                        )
+            ( PWM_in <= PWM_L_11110 - DECREASE  )                        )
   {
     digitalWrite(relay1, LOW);
     digitalWrite(relay2, LOW);
     digitalWrite(relay3, LOW);
     digitalWrite(relay4, LOW);
-//    Serial.println("L 1 1 1 1 0");
+#ifdef DEBUG
+    Serial.println("L 1 1 1 1 0");
+#endif
   }
 
   else if ( ( (PWM_L_11111 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_L_11111-DECREASE  )                         )
+            ( PWM_in <= PWM_L_11111 - DECREASE  )                         )
   {
     digitalWrite(relay1, LOW);
     digitalWrite(relay2, LOW);
     digitalWrite(relay3, LOW);
     digitalWrite(relay4, LOW);
     digitalWrite(relay5, LOW);
-//    Serial.println("L 1 1 1 1 1");
+#ifdef DEBUG
+    Serial.println("L 1 1 1 1 1");
+#endif
   }
 }
 
 void launchRight()
 {
   if ( ( (PWM_R_00000 - ADJUSTMENT_RANGE) < PWM_in ) &&
-       (  PWM_in <= PWM_R_00000-DECREASE)                          )
+       (  PWM_in <= PWM_R_00000 - DECREASE)                          )
   {
     digitalWrite(relay6, HIGH);
     digitalWrite(relay7, HIGH);
     digitalWrite(relay8, HIGH);
     digitalWrite(relay9, HIGH);
     digitalWrite(relay10, HIGH);
-//   Serial.println("R 0 0 0 0 0");
+#ifdef DEBUG
+    Serial.println("R 0 0 0 0 0");
+#endif
   }
 
   else if ( ( (PWM_R_00001 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_R_00001-DECREASE )                        )
+            ( PWM_in <= PWM_R_00001 - DECREASE )                        )
   {
     digitalWrite(relay10, LOW);
-//    Serial.println("R 0 0 0 0 1");
+#ifdef DEBUG
+    Serial.println("R 0 0 0 0 1");
+#endif
   }
 
   else if ( ( (PWM_R_00010 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_R_00010-DECREASE  )                        )
+            ( PWM_in <= PWM_R_00010 - DECREASE  )                        )
   {
     digitalWrite(relay9, LOW);
-//    Serial.println("R 0 0 0 1 0");
+#ifdef DEBUG
+    Serial.println("R 0 0 0 1 0");
+#endif
   }
 
   else if ( ( (PWM_R_00011 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_R_00011-DECREASE  )                        )
+            ( PWM_in <= PWM_R_00011 - DECREASE  )                        )
   {
     digitalWrite(relay9, LOW);
     digitalWrite(relay10, LOW);
-//  Serial.println("R 0 0 0 1 1");
+#ifdef DEBUG
+    Serial.println("R 0 0 0 1 1");
+#endif
   }
 
   else if ( ( (PWM_R_00100 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_R_00100-DECREASE  )                        )
+            ( PWM_in <= PWM_R_00100 - DECREASE  )                        )
   {
     digitalWrite(relay8, LOW);
-//    Serial.println("R 0 0 1 0 0");
+#ifdef DEBUG
+    Serial.println("R 0 0 1 0 0");
+#endif
   }
 
   else if ( ( (PWM_R_00101 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_R_00101-DECREASE  )                        )
+            ( PWM_in <= PWM_R_00101 - DECREASE  )                        )
   {
     digitalWrite(relay8, LOW);
     digitalWrite(relay10, LOW);
-//    Serial.println("R 0 0 1 0 1");
+#ifdef DEBUG
+    Serial.println("R 0 0 1 0 1");
+#endif
   }
 
   else if ( ( (PWM_R_00110 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_R_00110-DECREASE  )                        )
+            ( PWM_in <= PWM_R_00110 - DECREASE  )                        )
   {
     digitalWrite(relay8, LOW);
     digitalWrite(relay9, LOW);
-//    Serial.println("R 0 0 1 1 0");
+#ifdef DEBUG
+    Serial.println("R 0 0 1 1 0");
+#endif
   }
 
   else if ( ( (PWM_R_00111 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_R_00111-DECREASE  )                        )
+            ( PWM_in <= PWM_R_00111 - DECREASE  )                        )
   {
     digitalWrite(relay8, LOW);
     digitalWrite(relay9, LOW);
     digitalWrite(relay10, LOW);
-//    Serial.println("R 0 0 1 1 1");
+#ifdef DEBUG
+    Serial.println("R 0 0 1 1 1");
+#endif
   }
 
   else if ( ( (PWM_R_01000 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_R_01000-DECREASE  )                        )
+            ( PWM_in <= PWM_R_01000 - DECREASE  )                        )
   {
     digitalWrite(relay7, LOW);
-//    Serial.println("R 0 1 0 0 0");
+#ifdef DEBUG
+    Serial.println("R 0 1 0 0 0");
+#endif
   }
 
   else if ( ( (PWM_R_01001 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_R_01001-DECREASE  )                        )
+            ( PWM_in <= PWM_R_01001 - DECREASE  )                        )
   {
     digitalWrite(relay7, LOW);
     digitalWrite(relay10, LOW);
-//    Serial.println("R 0 1 0 0 1");
+#ifdef DEBUG
+    Serial.println("R 0 1 0 0 1");
+#endif
   }
 
   else if ( ( (PWM_R_01010 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_R_01010-DECREASE  )                        )
+            ( PWM_in <= PWM_R_01010 - DECREASE  )                        )
   {
     digitalWrite(relay7, LOW);
     digitalWrite(relay9, LOW);
-//   Serial.println("R 0 1 0 1 0");
+#ifdef DEBUG
+    Serial.println("R 0 1 0 1 0");
+#endif
   }
 
   else if ( ( (PWM_R_01011 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_R_01011-DECREASE  )                        )
+            ( PWM_in <= PWM_R_01011 - DECREASE  )                        )
   {
     digitalWrite(relay7, LOW);
     digitalWrite(relay9, LOW);
     digitalWrite(relay10, LOW);
-//    Serial.println("R 0 1 0 1 1");
+#ifdef DEBUG
+    Serial.println("R 0 1 0 1 1");
+#endif
   }
 
   else if ( ( (PWM_R_01100 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_R_01100-DECREASE  )                        )
+            ( PWM_in <= PWM_R_01100 - DECREASE  )                        )
   {
     digitalWrite(relay7, LOW);
     digitalWrite(relay8, LOW);
- //   Serial.println("R 0 1 1 0 0");
+#ifdef DEBUG
+    Serial.println("R 0 1 1 0 0");
+#endif
   }
 
   else if ( ( (PWM_R_01101 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_R_01101-DECREASE  )                        )
+            ( PWM_in <= PWM_R_01101 - DECREASE  )                        )
   {
     digitalWrite(relay7, LOW);
     digitalWrite(relay8, LOW);
     digitalWrite(relay10, LOW);
-//    Serial.println("R 0 1 1 0 1");
+#ifdef DEBUG
+    Serial.println("R 0 1 1 0 1");
+#endif
   }
 
   else if ( ( (PWM_R_01110 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_R_01110-DECREASE  )                        )
+            ( PWM_in <= PWM_R_01110 - DECREASE  )                        )
   {
     digitalWrite(relay7, LOW);
     digitalWrite(relay8, LOW);
     digitalWrite(relay9, LOW);
-//    Serial.println("R 0 1 1 1 0");
+#ifdef DEBUG
+    Serial.println("R 0 1 1 1 0");
+#endif
   }
 
   else if ( ( (PWM_R_01111 - ADJUSTMENT_RANGE) < PWM_in ) &&
-            ( PWM_in <= PWM_R_01111-DECREASE  )                        )
+            ( PWM_in <= PWM_R_01111 - DECREASE  )                        )
   {
     digitalWrite(relay7, LOW);
     digitalWrite(relay8, LOW);
     digitalWrite(relay9, LOW);
     digitalWrite(relay10, LOW);
-//    Serial.println("R 0 1 1 1 1");
+#ifdef DEBUG
+    Serial.println("R 0 1 1 1 1");
+#endif
   }
 
-  else if ( ( (PWM_R_10000 - ADJUSTMENT_RANGE-2) < PWM_in ) &&
-            ( PWM_in <= PWM_R_10000-DECREASE  )                        )
+  else if ( ( (PWM_R_10000 - ADJUSTMENT_RANGE - 2) < PWM_in ) &&
+            ( PWM_in <= PWM_R_10000 - DECREASE  )                        )
   {
     digitalWrite(relay6, LOW);
-//    Serial.println("R 1 0 0 0 0");
+#ifdef DEBUG
+    Serial.println("R 1 0 0 0 0");
+#endif
   }
 
-  else if ( ( (PWM_R_10001 - ADJUSTMENT_RANGE-2) < PWM_in ) &&
-            ( PWM_in <= PWM_R_10001-DECREASE  )                        )
+  else if ( ( (PWM_R_10001 - ADJUSTMENT_RANGE - 2) < PWM_in ) &&
+            ( PWM_in <= PWM_R_10001 - DECREASE  )                        )
   {
     digitalWrite(relay6, LOW);
     digitalWrite(relay10, LOW);
-//    Serial.println("R 1 0 0 0 1");
+#ifdef DEBUG
+    Serial.println("R 1 0 0 0 1");
+#endif
   }
 
-  else if ( ( (PWM_R_10010 - ADJUSTMENT_RANGE-2) < PWM_in ) &&
-            ( PWM_in <= PWM_R_10010-DECREASE  )                        )
+  else if ( ( (PWM_R_10010 - ADJUSTMENT_RANGE - 2) < PWM_in ) &&
+            ( PWM_in <= PWM_R_10010 - DECREASE  )                        )
   {
     digitalWrite(relay6, LOW);
     digitalWrite(relay9, LOW);
-//    Serial.println("R 1 0 0 1 0");
+#ifdef DEBUG
+    Serial.println("R 1 0 0 1 0");
+#endif
   }
 
-  else if ( ( (PWM_R_10011 - ADJUSTMENT_RANGE-2) < PWM_in ) &&
-            ( PWM_in <= PWM_R_10011-DECREASE  )                        )
+  else if ( ( (PWM_R_10011 - ADJUSTMENT_RANGE - 2) < PWM_in ) &&
+            ( PWM_in <= PWM_R_10011 - DECREASE  )                        )
   {
     digitalWrite(relay6, LOW);
     digitalWrite(relay9, LOW);
     digitalWrite(relay10, LOW);
-//    Serial.println("R 1 0 0 1 1");
+#ifdef DEBUG
+    Serial.println("R 1 0 0 1 1");
+#endif
   }
 
-  else if ( ( (PWM_R_10100 - ADJUSTMENT_RANGE-2) < PWM_in ) &&
-            ( PWM_in <= PWM_R_10100-DECREASE  )                        )
+  else if ( ( (PWM_R_10100 - ADJUSTMENT_RANGE - 2) < PWM_in ) &&
+            ( PWM_in <= PWM_R_10100 - DECREASE  )                        )
   {
     digitalWrite(relay6, LOW);
     digitalWrite(relay8, LOW);
-//    Serial.println("R 1 0 1 0 0");
+#ifdef DEBUG
+    Serial.println("R 1 0 1 0 0");
+#endif
   }
 
-  else if ( ( (PWM_R_10101 - ADJUSTMENT_RANGE-2) < PWM_in ) &&
-            ( PWM_in <= PWM_R_10101-DECREASE  )                        )
+  else if ( ( (PWM_R_10101 - ADJUSTMENT_RANGE - 2) < PWM_in ) &&
+            ( PWM_in <= PWM_R_10101 - DECREASE  )                        )
   {
     digitalWrite(relay6, LOW);
     digitalWrite(relay8, LOW);
     digitalWrite(relay10, LOW);
-//    Serial.println("R 1 0 1 0 1");
+#ifdef DEBUG
+    Serial.println("R 1 0 1 0 1");
+#endif
   }
 
-  else if ( ( (PWM_R_10110 - ADJUSTMENT_RANGE-2) < PWM_in ) &&
-            ( PWM_in <= PWM_R_10110-DECREASE  )                        )
+  else if ( ( (PWM_R_10110 - ADJUSTMENT_RANGE - 2) < PWM_in ) &&
+            ( PWM_in <= PWM_R_10110 - DECREASE  )                        )
   {
     digitalWrite(relay6, LOW);
     digitalWrite(relay9, LOW);
     digitalWrite(relay10, LOW);
-//    Serial.println("R 1 0 1 1 0");
+#ifdef DEBUG
+    Serial.println("R 1 0 1 1 0");
+#endif
   }
 
-  else if ( ( (PWM_R_10111 - ADJUSTMENT_RANGE-2) < PWM_in ) &&
-            ( PWM_in <= PWM_R_10111-DECREASE  )                        )
+  else if ( ( (PWM_R_10111 - ADJUSTMENT_RANGE - 2) < PWM_in ) &&
+            ( PWM_in <= PWM_R_10111 - DECREASE  )                        )
   {
     digitalWrite(relay6, LOW);
     digitalWrite(relay8, LOW);
     digitalWrite(relay9, LOW);
     digitalWrite(relay10, LOW);
-//    Serial.println("R 1 0 1 1 1");
+#ifdef DEBUG
+    Serial.println("R 1 0 1 1 1");
+#endif
   }
 
-  else if ( ( (PWM_R_11000 - ADJUSTMENT_RANGE-2) < PWM_in ) &&
-            ( PWM_in <= PWM_R_11000-DECREASE  )                        )
+  else if ( ( (PWM_R_11000 - ADJUSTMENT_RANGE - 2) < PWM_in ) &&
+            ( PWM_in <= PWM_R_11000 - DECREASE  )                        )
   {
     digitalWrite(relay6, LOW);
     digitalWrite(relay7, LOW);
-//   Serial.println("R 1 1 0 0 0");
+#ifdef DEBUG
+    Serial.println("R 1 1 0 0 0");
+#endif
   }
 
-  else if ( ( (PWM_R_11001 - ADJUSTMENT_RANGE-2) < PWM_in ) &&
-            ( PWM_in <= PWM_R_11001-DECREASE  )                        )
+  else if ( ( (PWM_R_11001 - ADJUSTMENT_RANGE - 2) < PWM_in ) &&
+            ( PWM_in <= PWM_R_11001 - DECREASE  )                        )
   {
     digitalWrite(relay6, LOW);
     digitalWrite(relay7, LOW);
     digitalWrite(relay10, LOW);
-//    Serial.println("R 1 1 0 0 1");
+#ifdef DEBUG
+    Serial.println("R 1 1 0 0 1");
+#endif
   }
 
-  else if ( ( (PWM_R_11010 - ADJUSTMENT_RANGE-2) < PWM_in ) &&
-            ( PWM_in <= PWM_R_11010-DECREASE  )                        )
+  else if ( ( (PWM_R_11010 - ADJUSTMENT_RANGE - 2) < PWM_in ) &&
+            ( PWM_in <= PWM_R_11010 - DECREASE  )                        )
   {
     digitalWrite(relay6, LOW);
     digitalWrite(relay7, LOW);
     digitalWrite(relay9, LOW);
-//    Serial.println("R 1 1 0 1 0");
+#ifdef DEBUG
+    Serial.println("R 1 1 0 1 0");
+#endif
   }
 
-  else if ( ( (PWM_R_11011 - ADJUSTMENT_RANGE-2) < PWM_in ) &&
-            ( PWM_in <= PWM_R_11011-DECREASE  )                        )
+  else if ( ( (PWM_R_11011 - ADJUSTMENT_RANGE - 2) < PWM_in ) &&
+            ( PWM_in <= PWM_R_11011 - DECREASE  )                        )
   {
     digitalWrite(relay6, LOW);
     digitalWrite(relay7, LOW);
     digitalWrite(relay9, LOW);
     digitalWrite(relay10, LOW);
-//    Serial.println("R 1 1 0 1 1");
+#ifdef DEBUG
+    Serial.println("R 1 1 0 1 1");
+#endif
   }
 
-  else if ( ( (PWM_R_11100 - ADJUSTMENT_RANGE-2) < PWM_in ) &&
-            ( PWM_in <= PWM_R_11100-DECREASE  )                        )
-  {
-    digitalWrite(relay6, LOW);
-    digitalWrite(relay7, LOW);
-    digitalWrite(relay8, LOW);
-//    Serial.println("R 1 1 1 0 0");
-  }
-
-  else if ( ( (PWM_R_11101 - ADJUSTMENT_RANGE-2) < PWM_in ) &&
-            ( PWM_in <= PWM_R_11101-DECREASE  )                        )
-  {
-    digitalWrite(relay6, LOW);
-    digitalWrite(relay7, LOW);
-    digitalWrite(relay8, LOW);
-    digitalWrite(relay10, LOW);
-//    Serial.println("R 1 1 1 0 1");
-  }
-
-  else if ( ( (PWM_R_11110 - ADJUSTMENT_RANGE-2) < PWM_in ) &&
-            ( PWM_in <= PWM_R_11110-DECREASE  )                        )
-  {
-    digitalWrite(relay6, LOW);
-    digitalWrite(relay7, LOW);
-    digitalWrite(relay8, LOW);
-    digitalWrite(relay9, LOW);
-//    Serial.println("R 1 1 1 1 0");
-  }
-
-  else if ( ( (PWM_R_11111 - ADJUSTMENT_RANGE-2) < PWM_in ) &&
-            ( PWM_in <= PWM_R_11111-DECREASE  )                         )
+  else if ( ( (PWM_R_11100 - ADJUSTMENT_RANGE - 2) < PWM_in ) &&
+            ( PWM_in <= PWM_R_11100 - DECREASE  )                        )
   {
     digitalWrite(relay6, LOW);
     digitalWrite(relay7, LOW);
     digitalWrite(relay8, LOW);
+#ifdef DEBUG
+    Serial.println("R 1 1 1 0 0");
+#endif
+  }
+
+  else if ( ( (PWM_R_11101 - ADJUSTMENT_RANGE - 2) < PWM_in ) &&
+            ( PWM_in <= PWM_R_11101 - DECREASE  )                        )
+  {
+    digitalWrite(relay6, LOW);
+    digitalWrite(relay7, LOW);
+    digitalWrite(relay8, LOW);
+    digitalWrite(relay10, LOW);
+#ifdef DEBUG
+    Serial.println("R 1 1 1 0 1");
+#endif
+  }
+
+  else if ( ( (PWM_R_11110 - ADJUSTMENT_RANGE - 2) < PWM_in ) &&
+            ( PWM_in <= PWM_R_11110 - DECREASE  )                        )
+  {
+    digitalWrite(relay6, LOW);
+    digitalWrite(relay7, LOW);
+    digitalWrite(relay8, LOW);
+    digitalWrite(relay9, LOW);
+#ifdef DEBUG
+    Serial.println("R 1 1 1 1 0");
+#endif
+  }
+
+  else if ( ( (PWM_R_11111 - ADJUSTMENT_RANGE - 2) < PWM_in ) &&
+            ( PWM_in <= PWM_R_11111 - DECREASE  )                         )
+  {
+    digitalWrite(relay6, LOW);
+    digitalWrite(relay7, LOW);
+    digitalWrite(relay8, LOW);
     digitalWrite(relay9, LOW);
     digitalWrite(relay10, LOW);
-//    Serial.println("R 1 1 1 1 1");
+#ifdef DEBUG
+    Serial.println("R 1 1 1 1 1");
+#endif
   }
 }
